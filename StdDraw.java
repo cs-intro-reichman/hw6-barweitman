@@ -60,6 +60,8 @@ import java.io.File;
 import java.io.IOException;
 
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import java.util.LinkedList;
@@ -1429,10 +1431,9 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         // try to read from URL
         if (icon.getImageLoadStatus() != MediaTracker.COMPLETE) {
             try {
-                URL url = new URL(filename);
-                icon = new ImageIcon(url);
-            }
-            catch (MalformedURLException e) {
+               URL url = new URI(filename).toURL();
+               icon = new ImageIcon(url); }
+               catch (URISyntaxException | MalformedURLException e) {
                 /* not a url */
             }
         }
